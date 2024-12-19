@@ -1,22 +1,17 @@
 import css from '../css/components/form.module.css'
 
-export default function Form({fields, action}){
+import { Link } from 'react-router-dom'
+
+export default function Form({fields, action, submit, link}){
   return(
     <div className={css.form}>
       <div className={css.fields}>
-        {
-          fields.map((field, index) => {
-            return(
-              <div key={index} className={css.wrapper}>
-                <input type="text" placeholder='' className={css.input} />
-                <label className={css.label} >{field}</label>
-              </div>
-            )
-          })
-        }
+        {fields}
       </div>
 
-      <button className={css.button}>{action}</button>
+      <button onClick={submit} className={css.button}>{action}</button>
+
+      <Link to={link.path} >{link.text}</Link>
     </div>
   )
 }

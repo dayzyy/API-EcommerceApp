@@ -11,7 +11,8 @@ urlpatterns = [
     path('token/obtain/', TokenObtainPairView.as_view(), name='obtain-token'),
     path('token/refresh/', TokenRefreshView.as_view(), name='refresh-token'),
 
-    path('products/', include('product.urls'))
+    path('products/', include('product.urls')),
+    path('user/', include('user.urls'))
 ]
 
 if settings.DEBUG:
