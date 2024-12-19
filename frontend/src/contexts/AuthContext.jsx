@@ -7,9 +7,6 @@ const AuthContext = createContext()
 const API_URL = 'http://localhost:8000'
 
 export const AuthProvider = ({children}) =>  {
-  const [user, setUser] = useState(null)
-  const [tokens, setTokens] = useState(null)
-
   const register = async (email, password, password2) => {
     const response = await fetch(`${API_URL}/user/register/`, {
       method: 'POST',
@@ -91,13 +88,30 @@ export const AuthProvider = ({children}) =>  {
     }
 
     const data = await response.json()
-    setTokens(data)
     localStorage.setItem('tokens', JSON.stringify(data))
   }
 
+  const get_user = async _ => {
+    const tokens = JSON.parse(localStorage.getItem('tokens'))
+
+    if (!tokens) return null
+
+    const response = await fetch(`${API_URL}/user/get`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${tokens.access}`,
+      },
+    })
+      
+    if (response.status == 200){
+      const user = await response.json()
+      return user
+    }
+  }
 
   return(
-    <AuthContext.Provider value={{login, register}}>
+    <AuthContext.Provider value={{login, register, get_user}}>
       {children}
     </AuthContext.Provider>
   )
