@@ -7,7 +7,7 @@
   justify-content: space-between;
   padding: 1rem;
 
-  background-color: #C9C9C9;
+  background-color: #C3C3C3;
   border: 2px solid #003f5c;
   border-radius: 10px;
 }
@@ -28,13 +28,13 @@
 .subtext{
   align-self: end;
   font-weight: 500;
-  color: #666666;
+  color: #017777;
 }
 
 .icon{
   font-size: 2.4rem;
   cursor: pointer;
-  color: #7a5195;
+  color: #936FAB;
 }
 
 .logoMobile, .logo{

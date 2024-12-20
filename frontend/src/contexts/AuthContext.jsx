@@ -7,6 +7,19 @@ const AuthContext = createContext()
 const API_URL = 'http://localhost:8000'
 
 export const AuthProvider = ({children}) =>  {
+  const [user, setUser] = useState(null)
+  const [tokens, setTokens] = useState(null)
+
+  useEffect(_ => {
+    const savedTokens = JSON.parse(localStorage.getItem('tokens'))
+
+    if (savedTokens) setTokens(savedTokens)
+  }, [])
+
+  useEffect(_ => {
+    if (tokens) get_user()
+  }, [tokens])
+
   const register = async (email, password, password2) => {
     const response = await fetch(`${API_URL}/user/register/`, {
       method: 'POST',
@@ -89,11 +102,10 @@ export const AuthProvider = ({children}) =>  {
 
     const data = await response.json()
     localStorage.setItem('tokens', JSON.stringify(data))
+    setTokens(data)
   }
 
   const get_user = async _ => {
-    const tokens = JSON.parse(localStorage.getItem('tokens'))
-
     if (!tokens) return null
 
     const response = await fetch(`${API_URL}/user/get`, {
@@ -105,13 +117,30 @@ export const AuthProvider = ({children}) =>  {
     })
       
     if (response.status == 200){
-      const user = await response.json()
-      return user
+      const user_data = await response.json()
+      setUser(user_data)
+    }
+
+    if (response.status == 401){
+      const res = await fetch(`${API_URL}/token/refresh/`, {
+        method: 'POST',
+        headers:{
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(tokens)
+      })
+  
+      if (res.status == 200){
+
+        const data = await res.json()
+        setTokens(data)
+      }
+      
     }
   }
 
   return(
-    <AuthContext.Provider value={{login, register, get_user}}>
+    <AuthContext.Provider value={{login, register, user}}>
       {children}
     </AuthContext.Provider>
   )
