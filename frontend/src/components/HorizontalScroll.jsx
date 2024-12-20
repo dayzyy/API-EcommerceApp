@@ -12,6 +12,7 @@ export default function HorizontalScroll(){
   return (
     <div className={css.wrapper}>
       <ProductCard product={product} />
+      <ProductCard product={product} />
     </div>
   )
 }

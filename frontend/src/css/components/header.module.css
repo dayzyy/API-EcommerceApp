@@ -1,6 +1,9 @@
 .header{
+  position: fixed;
+  top: 10px;
+
   height: 5rem;
-  width: 100%;
+  width: 95%;
 
   display: flex;
   align-items: center;
@@ -10,6 +13,13 @@
   background-color: #C3C3C3;
   border: 2px solid #003f5c;
   border-radius: 10px;
+
+  transition: transform 0.3s ease;
+  z-index: 1121;
+}
+
+.hide{
+  transform: translateY(-100%)
 }
 
 .wrapper{

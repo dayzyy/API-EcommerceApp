@@ -10,13 +10,32 @@ import { FiUserX } from "react-icons/fi"; //Unauthorized user icon for Mobile
 
 import { useAuth } from '../contexts/AuthContext';
 
+import { useState, useRef, useEffect } from 'react';
+
 export default function Header(){
   const {user} = useAuth()
 
-  if (!user) return <h1>Loading ...</h1>
+  const [isHidden, setIsHidden] = useState(false)
+  const lastScrollY = useRef(0)
+
+  const handle_scroll = _ => {
+    console.log('scrolling')
+    const scrollY = window.scrollY
+
+    if (scrollY > lastScrollY.current) setIsHidden(true)
+    else setIsHidden(false)
+
+    lastScrollY.current = scrollY
+  }
+
+  useEffect(_ => {
+    document.addEventListener('scroll', handle_scroll)
+    return _ => document.removeEventListener('scroll', handle_scroll)
+  }, [])
+
 
   return (
-    <div className={css.header}>
+    <div className={`${css.header} ${isHidden ? css.hide : ''}`}>
       <h1 className={css.logoMobile} >E-comm</h1>
       <h1 className={css.logo} >E-commerce</h1>
 

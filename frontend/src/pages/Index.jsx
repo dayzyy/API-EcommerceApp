@@ -8,6 +8,10 @@ export default function Index(){
     <div className={css.body}>
       <Header/>
       <HorizontalScroll/>
+      <HorizontalScroll/>
+      <HorizontalScroll/>
+      <HorizontalScroll/>
+      <HorizontalScroll/>
     </div>
   )
 }
