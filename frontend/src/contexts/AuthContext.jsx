@@ -2,6 +2,8 @@ import { createContext, useContext, useState, useEffect} from "react";
 
 import Swal from "sweetalert2";
 
+import '../css/swal.css'
+
 const AuthContext = createContext()
 
 const API_URL = 'http://localhost:8000'
@@ -39,6 +41,7 @@ export const AuthProvider = ({children}) =>  {
         icon: 'error',
         showConfirmButton: false,
         timer: 2000,
+        customClass: 'index',
       })
       return
     }
@@ -46,11 +49,12 @@ export const AuthProvider = ({children}) =>  {
     if (response.status == 200){
       Swal.fire({
         width: '300',
-        position: 'top-end',
+        position: 'center',
         title: 'Successfuly registered!',
         icon: 'success',
         showConfirmButton: false,
         timer: 1000,
+        customClass: 'index',
       })
     }
   }
@@ -67,7 +71,7 @@ export const AuthProvider = ({children}) =>  {
     if (response.status == 400){
       Swal.fire({
         width: '300',
-        position: 'top-end',
+        position: 'center',
         title: 'Fill out the form!',
         icon: 'error',
         showConfirmButton: false,
@@ -79,12 +83,13 @@ export const AuthProvider = ({children}) =>  {
     if (response.status == 401){
       Swal.fire({
         width: '300',
-        position: 'top-end',
+        position: 'center',
         title: 'Wrong credentials!',
         text: 'User not found',
         icon: 'error',
         showConfirmButton: false,
         timer: 1000,
+        customClass: 'index',
       })
       return
     }
@@ -92,11 +97,12 @@ export const AuthProvider = ({children}) =>  {
     if (response.status == 200){
       Swal.fire({
         width: '300',
-        position: 'top-end',
+        position: 'center',
         title: 'Successfuly loged in!',
         icon: 'success',
         showConfirmButton: false,
         timer: 1000,
+        customClass: 'index',
       })
     }
 

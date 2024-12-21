@@ -49,6 +49,7 @@
 
 .logoMobile, .logo{
   color: #333333;
+  cursor: pointer;
 }
 
 .logo{

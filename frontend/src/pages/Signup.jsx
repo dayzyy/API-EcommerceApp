@@ -1,6 +1,3 @@
-import css from '../css/pages/authpages.module.css'
-
-import Header from "../components/Header"
 import Form from "../components/AuthForm"
 import Input from '../components/Input'
 
@@ -21,10 +18,5 @@ export default function Signup(){
     <Input field='password' value={password2} change={e => setPassword2(e.target.value)} />
   </>)
 
-  return(
-    <div className={css.body}>
-      <Header/>
-      <Form fields={fields} action='Sign up' submit={_ => register(email, password, password2)} link={{path: '/login', text: 'Log in'}} />
-    </div>
-  )
+  return <Form fields={fields} action='Sign up' submit={_ => register(email, password, password2)} link={{path: '/login', text: 'Log in'}} />
 }

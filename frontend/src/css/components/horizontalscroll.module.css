@@ -1,9 +1,11 @@
 .wrapper{
   height: 13rem;
+  width: 80%;
 
   display: flex;
   align-items: end;
   gap: 3rem;
+  padding: 1rem;
 
   overflow-x: auto;
 
