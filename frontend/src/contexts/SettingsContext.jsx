@@ -1,9 +1,11 @@
 import { useContext, createContext, useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
 const SettingsContext = createContext()
 
 export function SettingsProvider({children}){
   const [isShown, setIsShown] = useState(false)
+  const location = useLocation()
 
   useEffect(_ => {
     if (isShown){
@@ -13,6 +15,10 @@ export function SettingsProvider({children}){
       document.body.style.overflow = 'auto'
     }
   }, [isShown])
+
+  useEffect(_ => {
+    setIsShown(false)
+  }, [location])
 
   const toggleSettings = _ => {
     setIsShown(prev => !prev)

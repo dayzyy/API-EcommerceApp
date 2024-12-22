@@ -19,7 +19,6 @@ export default function Header(){
   const {user} = useAuth()
   const {toggleSettings} = useSettings()
 
-
   const [isHidden, setIsHidden] = useState(false)
   const lastScrollY = useRef(0)
 
@@ -40,7 +39,6 @@ export default function Header(){
     document.addEventListener('scroll', handle_scroll)
     return _ => document.removeEventListener('scroll', handle_scroll)
   }, [])
-
 
   return (
     <div className={`${css.header} ${isHidden ? css.hide : ''}`}>
@@ -63,14 +61,12 @@ export default function Header(){
         {(!user &&
           <>
             <div className={css.wrapperAuth}>
-              <FiUser className={css.icon} onClick={_ => navigate('signup/')}/>
+              <FiUser className={css.icon} onClick={_ => navigate('login/')}/>
               <p className={css.subtext} >sign in</p>
             </div>
-            <FiUserX className={`${css.icon} ${css.iconUserMobile}`} onClick={_ => navigate('signup/')} />
+            <FiUserX className={`${css.icon} ${css.iconUserMobile}`} onClick={_ => navigate('login/')} />
           </>
         )}
-
-        
 
         <HiMiniBars3BottomRight className={css.icon} onClick={handleClick} />
       </div>

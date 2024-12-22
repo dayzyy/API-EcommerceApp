@@ -24,3 +24,11 @@ def all(request):
     data = CompactProductSerializer(products, many=True).data
 
     return Response(data, status=200)
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def in_sale(request):
+    products = Product.objects.filter(sale__isnull=False)
+    data = CompactProductSerializer(products, many=True).data
+
+    return Response(data, status=200)

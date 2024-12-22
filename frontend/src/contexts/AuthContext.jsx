@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useEffect} from "react";
+import { useNavigate } from "react-router-dom";
 
 import Swal from "sweetalert2";
 
@@ -11,6 +12,7 @@ const API_URL = 'http://localhost:8000'
 export const AuthProvider = ({children}) =>  {
   const [user, setUser] = useState(null)
   const [tokens, setTokens] = useState(null)
+  const navigate = useNavigate()
 
   useEffect(_ => {
     const savedTokens = JSON.parse(localStorage.getItem('tokens'))
@@ -19,8 +21,11 @@ export const AuthProvider = ({children}) =>  {
   }, [])
 
   useEffect(_ => {
-    if (tokens) get_user()
+    get_user()
   }, [tokens])
+
+  useEffect(_ => {
+  }, [user])
 
   const register = async (email, password, password2) => {
     const response = await fetch(`${API_URL}/user/register/`, {
@@ -41,7 +46,6 @@ export const AuthProvider = ({children}) =>  {
         icon: 'error',
         showConfirmButton: false,
         timer: 2000,
-        customClass: 'index',
       })
       return
     }
@@ -54,7 +58,6 @@ export const AuthProvider = ({children}) =>  {
         icon: 'success',
         showConfirmButton: false,
         timer: 1000,
-        customClass: 'index',
       })
     }
   }
@@ -89,7 +92,6 @@ export const AuthProvider = ({children}) =>  {
         icon: 'error',
         showConfirmButton: false,
         timer: 1000,
-        customClass: 'index',
       })
       return
     }
@@ -98,11 +100,10 @@ export const AuthProvider = ({children}) =>  {
       Swal.fire({
         width: '300',
         position: 'center',
-        title: 'Successfuly loged in!',
+        title: 'Successfuly logged in!',
         icon: 'success',
         showConfirmButton: false,
         timer: 1000,
-        customClass: 'index',
       })
     }
 
@@ -112,7 +113,7 @@ export const AuthProvider = ({children}) =>  {
   }
 
   const get_user = async _ => {
-    if (!tokens) return null
+    if (!tokens) return setUser(null)
 
     const response = await fetch(`${API_URL}/user/get`, {
       method: 'GET',
@@ -145,8 +146,24 @@ export const AuthProvider = ({children}) =>  {
     }
   }
 
+  const logout = _ =>  {
+    localStorage.removeItem('tokens')
+
+    Swal.fire({
+      width: '300',
+      position: 'center',
+      title: 'Successfuly logged out!',
+      icon: 'success',
+      showConfirmButton: false,
+      timer: 1000,
+    })
+
+    setTokens(null)
+    navigate('/')
+  }
+
   return(
-    <AuthContext.Provider value={{login, register, user}}>
+    <AuthContext.Provider value={{login, register, logout, user}}>
       {children}
     </AuthContext.Provider>
   )
