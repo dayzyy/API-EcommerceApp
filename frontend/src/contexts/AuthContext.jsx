@@ -59,6 +59,7 @@ export const AuthProvider = ({children}) =>  {
         showConfirmButton: false,
         timer: 1000,
       })
+      navigate('/login')
     }
   }
 
@@ -105,6 +106,7 @@ export const AuthProvider = ({children}) =>  {
         showConfirmButton: false,
         timer: 1000,
       })
+      navigate('/')
     }
 
     const data = await response.json()

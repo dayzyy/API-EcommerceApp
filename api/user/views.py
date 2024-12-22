@@ -25,7 +25,7 @@ def register(request):
     except Account.DoesNotExist:
         pass
 
-    if len(credentials['password']) <= 5:
+    if len(credentials['password']) < 5:
         return Response({"error": "Password must be at least 5 characters long!"}, status=400)
     if credentials['password'] != credentials['password2']:
         return Response({"error": "Passwords did not match!"}, status=400)

@@ -19,9 +19,12 @@
 .image{
   max-height: 100%;
   max-width: 100%;
+
   border: 1px solid #003f5c;
   border-radius: 5px;
   padding: 0;
+
+  cursor: pointer;
 }
 
 .discount{

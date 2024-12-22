@@ -1,0 +1,49 @@
+.body{
+  width: 100%;
+
+  padding: 1rem;
+}
+
+.image{
+  max-width: 100%;
+
+  border: 1px solid #003f5c;
+  border-radius: 5px;
+}
+
+.wrapper{
+  max-width: 80%; 
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+}
+
+.wrapperPrice{
+  align-self: end;
+  display: flex;
+  gap: 1rem;
+  padding-right: 3rem;
+}
+
+.priceOld, .priceCurrent, .text{
+  font-size: 1.2rem;
+}
+
+.priceOld{
+  text-decoration: line-through;
+  color: red;
+}
+
+.priceCurrent{
+  color: #808000;
+}
+
+.text{
+  color: #666;
+}
+
+@media(min-width: 500px){
+  .wrapper{
+    max-width: 375px;
+  }
+}
