@@ -1,0 +1,21 @@
+.wrapper{
+  width: 100%;
+  height: 100%;
+
+  display: grid;
+  place-items: center;
+}
+
+.load{
+  font-size: 3rem;
+  animation: loading .5s linear infinite;
+}
+
+@keyframes loading{
+  0%{
+      rotate: 0deg;
+    }
+  100%{
+      rotate: 360deg;
+    }
+}

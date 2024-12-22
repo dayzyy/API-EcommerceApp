@@ -37,16 +37,18 @@
   font-weight: bold;
 }
 
-.price{
-  position: absolute;
-  bottom: -1.4rem;
-  right: 0;
+.wrapperInfo{
+  display: flex;
+  justify-content: space-between;
+}
 
+.price{
   font-size: .9rem;
-  color: #666666;
+  color: #808000;
   font-weight: bold;
 }
 
 .category{
   color: #666666;
+  font-size: 1rem;
 }

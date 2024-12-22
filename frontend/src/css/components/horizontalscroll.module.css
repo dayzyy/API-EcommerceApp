@@ -1,15 +1,15 @@
 .wrapper{
   height: 13rem;
-  width: 80%;
+  width: 100%;
 
   display: flex;
   align-items: end;
-  gap: 3rem;
+  gap: 4rem;
   padding: 1rem 3rem;
 
   overflow-x: auto;
 
-  background: #c9c9c9;
+  background: #d5d5d5;
   border-top: 1px solid #003f5c;
   border-bottom: 1px solid #003f5c;
 }

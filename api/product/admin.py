@@ -12,7 +12,7 @@ class ProductAdmin(admin.ModelAdmin):
         else:
             return self.add_fields
     
-    list_display = ('category', 'price', 'sale', 'is_ordered')
+    list_display = ('category', 'price', 'sale', 'desc','is_ordered')
     list_filter = ('category', 'is_ordered', 'sale')
     search_fields = ('category',)
     ordering = ('-created_at',)

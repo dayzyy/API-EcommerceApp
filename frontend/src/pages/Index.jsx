@@ -21,11 +21,12 @@ export default function Index(){
     get_products()
   }, [])
 
-  if (!products) return <h1>Loading...</h1>
-
   return(
     <div className={css.body}>
-      <HorizontalScroll products={products} />
+      <div className={css.sale}>
+        <h2 className={css.title} >Sale</h2>
+        <HorizontalScroll products={products} />
+      </div>
     </div>
   )
 }

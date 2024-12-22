@@ -1,5 +1,9 @@
 .body{
-  width: 100%;
+  width: 90%;
+
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 
   padding: 1rem;
 }
@@ -9,6 +13,8 @@
 
   border: 1px solid #003f5c;
   border-radius: 5px;
+
+  cursor: pointer;
 }
 
 .wrapper{
@@ -25,8 +31,8 @@
   padding-right: 3rem;
 }
 
-.priceOld, .priceCurrent, .text{
-  font-size: 1.2rem;
+.priceOld, .priceCurrent, .text, .subtext{
+  font-size: 1.1rem;
 }
 
 .priceOld{
@@ -40,10 +46,58 @@
 
 .text{
   color: #666;
+  font-weight: bold;
+}
+
+.subtext{
+  color: #123456;
+}
+
+.info{
+  height: fit-content;
+  width: clamp(310px, 100% ,600px);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 3rem;
+}
+
+.wrapperDesc{
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.wrapperInfo{
+  display: flex;
+  gap: .5rem;
+}
+
+.button{
+  height: 70px;
+  width: 230px;
+
+  background: #009879;
+  border: 1px solid #003f5c;
+  border-radius: 5px;
+
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: aqua;
+
+  cursor: pointer;
 }
 
 @media(min-width: 500px){
   .wrapper{
     max-width: 375px;
+  }
+}
+
+@media(min-width: 900px){
+  .body{
+    flex-direction: row;
+    gap: 5rem;
   }
 }
