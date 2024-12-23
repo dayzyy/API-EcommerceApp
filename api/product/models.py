@@ -1,5 +1,7 @@
 from django.db import models
 
+from user.models import Account
+
 class Product(models.Model):
     class Category(models.TextChoices):
         GAMING = 'Gaming', 'Gaming'
@@ -38,10 +40,10 @@ class Product(models.Model):
 
     price = models.DecimalField(max_digits=6, decimal_places=2)
     sale = models.IntegerField(choices=Sale.choices, null=True, blank=True)
-    is_ordered = models.BooleanField(default=False)
+    ordered_by = models.ForeignKey(Account, related_name='products', blank=True, null=True, on_delete=models.SET_NULL)
 
     def __str__(self):
-        return self.category
+        return f'{self.category} ({self.id})'
 
     def desc(self):
         return self.description

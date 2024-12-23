@@ -1,20 +1,18 @@
 import css from '../css/pages/productpage.module.css'
 
 import Loading from '../components/Loading'
+import { useCart } from '../contexts/CartContext';
 
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import Swal from 'sweetalert2';
 
 export default function Product(){
   const {id} = useParams()
-  const navigate = useNavigate()
+  const {add_to_cart} = useCart()
   const [product, setProduct] = useState(null)
 
   const API_IMAGES_URL = 'http://localhost:8000'
-
-  const discount = _ => {
-    return (product.price - (product.price * product.sale / 100)).toFixed(2)
-  }
 
   useEffect(_ => {
     const get_product = async _ => {
@@ -27,6 +25,12 @@ export default function Product(){
     }
     get_product()
   }, [])
+
+  const discount = _ => {
+    return (product.price - (product.price * product.sale / 100)).toFixed(2)
+  }
+
+
 
   if (!product) return <Loading/>
 
@@ -57,7 +61,7 @@ export default function Product(){
           </div>
         </div>
 
-        <button className={css.button} >Add to cart</button>
+        <button className={css.button} onClick={_ => add_to_cart(product.id)} >Add to cart</button>
       </div>
     </div>
   )

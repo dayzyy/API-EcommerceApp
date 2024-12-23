@@ -10,6 +10,7 @@ import { FiUserX } from "react-icons/fi"; //Unauthorized user icon for Mobile
 
 import { useAuth } from '../contexts/AuthContext';
 import { useSettings } from '../contexts/SettingsContext';
+import { useCart } from '../contexts/CartContext';
 
 import { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -17,6 +18,7 @@ import { useNavigate } from 'react-router-dom';
 export default function Header(){
   const navigate = useNavigate()
   const {user} = useAuth()
+  const {cart} = useCart()
   const {toggleSettings} = useSettings()
 
   const [isHidden, setIsHidden] = useState(false)
@@ -46,7 +48,10 @@ export default function Header(){
       <h1 className={css.logo} onClick={_ => navigate('/')} >E-commerce</h1>
 
       <div className={css.wrapper}>
-        <HiOutlineShoppingCart className={css.icon} />
+        <div className={css.cart}>
+          <HiOutlineShoppingCart className={css.icon} />
+          {cart && <p className={css.num}>{cart.length}</p>}
+        </div>
 
         {(user &&
           <>

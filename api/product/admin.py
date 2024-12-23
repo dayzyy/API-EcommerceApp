@@ -3,8 +3,8 @@ from django.contrib import admin
 from .models import Product
 
 class ProductAdmin(admin.ModelAdmin):
-    add_fields = ['category', 'price', 'description', 'image']
-    change_fields = ['category', 'price', 'sale', 'description', 'image', 'is_ordered'] 
+    add_fields = ['category', 'price', 'sale', 'description', 'image']
+    change_fields = ['category', 'price', 'sale', 'description', 'image', 'ordered_by']
 
     def get_fields(self, request, obj=None):
         if obj:
@@ -12,8 +12,8 @@ class ProductAdmin(admin.ModelAdmin):
         else:
             return self.add_fields
     
-    list_display = ('category', 'price', 'sale', 'desc','is_ordered')
-    list_filter = ('category', 'is_ordered', 'sale')
+    list_display = ('category', 'price', 'sale', 'desc','ordered_by')
+    list_filter = ('category', 'ordered_by', 'sale')
     search_fields = ('category',)
     ordering = ('-created_at',)
 
