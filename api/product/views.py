@@ -20,7 +20,7 @@ def get(request, id):
 @api_view(['GET'])
 @permission_classes([AllowAny])
 def all(request):
-    products = Product.objects.all()
+    products = Product.objects.filter(sale__isnull=True)
     data = CompactProductSerializer(products, many=True).data
 
     return Response(data, status=200)
@@ -28,7 +28,18 @@ def all(request):
 @api_view(['GET'])
 @permission_classes([AllowAny])
 def in_sale(request):
-    products = Product.objects.filter(sale__isnull=False)
+    products = Product.objects.filter(sale__isnull=False, ordered_by__isnull=True)
+    data = CompactProductSerializer(products, many=True).data
+
+    return Response(data, status=200)
+
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def in_cart(request):
+    ids = request.data['ids']
+
+    products = (Product.objects.filter(id__in=ids))
+
     data = CompactProductSerializer(products, many=True).data
 
     return Response(data, status=200)

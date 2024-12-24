@@ -21,11 +21,11 @@ export const AuthProvider = ({children}) =>  {
   }, [])
 
   useEffect(_ => {
-    get_user()
+    if(tokens){
+      localStorage.setItem('tokens', JSON.stringify(tokens))
+      get_user()
+    }
   }, [tokens])
-
-  useEffect(_ => {
-  }, [user])
 
   const register = async (email, password, password2) => {
     const response = await fetch(`${API_URL}/user/register/`, {
@@ -41,7 +41,7 @@ export const AuthProvider = ({children}) =>  {
 
       Swal.fire({
         width: '300',
-        position: 'top-end',
+        position: 'center',
         title: data.error,
         icon: 'error',
         showConfirmButton: false,
@@ -115,8 +115,6 @@ export const AuthProvider = ({children}) =>  {
   }
 
   const get_user = async _ => {
-    if (!tokens) return setUser(null)
-
     const response = await fetch(`${API_URL}/user/get`, {
       method: 'GET',
       headers: {
@@ -140,11 +138,23 @@ export const AuthProvider = ({children}) =>  {
       })
   
       if (res.status == 200){
-
         const data = await res.json()
-        setTokens(data)
+        setTokens(prev => ({...prev, access: data.access}))
       }
-      
+
+      if (res.status == 401){
+        navigate('/login')
+        localStorage.removeItem('tokens')
+        setTokens(null)
+        Swal.fire({
+          width: '300',
+          position: 'center',
+          title: 'Session expired, Log in again!',
+          icon: 'error',
+          showConfirmButton: false,
+          timer: 1500,
+        })
+      }
     }
   }
 
@@ -161,6 +171,7 @@ export const AuthProvider = ({children}) =>  {
     })
 
     setTokens(null)
+    setUser(null)
     navigate('/')
   }
 

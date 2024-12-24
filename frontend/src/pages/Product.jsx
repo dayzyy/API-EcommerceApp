@@ -40,7 +40,7 @@ export default function Product(){
         <img className={css.image} src={product.image ? `${API_IMAGES_URL}/${product.image}` : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTVLDP5s2j9u1x86fOb7kNKXanJeMn8zZ30ZQ&s'} loading='lazy' onClick={_ => window.location.href=`${API_IMAGES_URL}/${product.image}`}/>
         <div className={css.wrapperPrice}>
           <p className={css.text} >Price:</p>
-          <p className={css.priceOld} >{product.price}$</p>
+          {product.sale && <p className={css.priceOld} >{product.price}$</p>}
           <p className={css.priceCurrent} >{discount()}$</p>
         </div>
       </div>

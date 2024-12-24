@@ -1,11 +1,28 @@
 import { createContext, useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import Swal from "sweetalert2";
 
 const CartContext = createContext()
 
 export function CartProvider({children}){
-  const [cart, setCart] = useState(JSON.parse(localStorage.getItem('cart')))
+  const [cart, setCart] = useState(null)
+  const navigate = useNavigate()
+
+  useEffect(_ => {
+    const savedCart = JSON.parse(localStorage.getItem('cart'))
+    if (savedCart) setCart(savedCart)
+  }, [])
+
+  useEffect(_ => {
+    if (cart && cart.length == 0){
+      navigate('/')
+      localStorage.removeItem('cart')
+      setCart(null)
+      return
+    }
+    if (cart) localStorage.setItem('cart', JSON.stringify(cart))
+  }, [cart])
 
   const add_to_cart = id => {
     if (!cart){
@@ -35,11 +52,7 @@ export function CartProvider({children}){
         return
       }
       
-      setCart(prev => {
-        const newCart = [...prev, id]
-        localStorage.setItem('cart', JSON.stringify(newCart))
-        return newCart
-      })
+      setCart(prev => [...prev, id])
 
       Swal.fire({
         width: '300',
@@ -52,8 +65,12 @@ export function CartProvider({children}){
     }
   }
 
+  const remove_from_cart = id => {
+    setCart(prev => prev.filter(product_id => product_id != id))
+  }
+
   return(
-    <CartContext.Provider value={{cart, add_to_cart}}>
+    <CartContext.Provider value={{cart, add_to_cart, remove_from_cart}}>
       {children}
     </CartContext.Provider>
   )

@@ -15,6 +15,8 @@ import { useCart } from '../contexts/CartContext';
 import { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import Swal from 'sweetalert2';
+
 export default function Header(){
   const navigate = useNavigate()
   const {user} = useAuth()
@@ -33,8 +35,23 @@ export default function Header(){
     lastScrollY.current = scrollY
   }
 
-  const handleClick = _ => {
+  const handle_click_settings = _ => {
     toggleSettings()
+  }
+
+  const handle_click_cart = _ => {
+    if (!cart) {
+      Swal.fire({
+        width: '300',
+        position: 'center',
+        title: 'No items in cart',
+        icon: 'error',
+        showConfirmButton: false,
+        timer: 1500,
+      })
+      return
+    }
+    navigate('/cart')
   }
 
   useEffect(_ => {
@@ -49,7 +66,7 @@ export default function Header(){
 
       <div className={css.wrapper}>
         <div className={css.cart}>
-          <HiOutlineShoppingCart className={css.icon} />
+          <HiOutlineShoppingCart onClick={handle_click_cart} className={css.icon} />
           {cart && <p className={css.num}>{cart.length}</p>}
         </div>
 
@@ -73,7 +90,7 @@ export default function Header(){
           </>
         )}
 
-        <HiMiniBars3BottomRight className={css.icon} onClick={handleClick} />
+        <HiMiniBars3BottomRight className={css.icon} onClick={handle_click_settings} />
       </div>
     </div>
   )

@@ -1,7 +1,7 @@
 import css from '../css/components/button.module.css'
 
-export default function Button({text}){
+export default function Button({text, click}){
   return(
-    <button className={css.button} >{text}</button>
+    <button className={css.button} onClick={click} >{text}</button>
   )
 }
