@@ -69,8 +69,13 @@ export function CartProvider({children}){
     setCart(prev => prev.filter(product_id => product_id != id))
   }
 
+  const empty_cart = _ => {
+    setCart(null)
+    localStorage.removeItem('cart')
+  }
+
   return(
-    <CartContext.Provider value={{cart, add_to_cart, remove_from_cart}}>
+    <CartContext.Provider value={{cart, empty_cart, add_to_cart, remove_from_cart}}>
       {children}
     </CartContext.Provider>
   )

@@ -66,7 +66,7 @@ export default function Header(){
 
       <div className={css.wrapper}>
         <div className={css.cart}>
-          <HiOutlineShoppingCart onClick={handle_click_cart} className={css.icon} />
+          <HiOutlineShoppingCart onClick={handle_click_cart} className={`${css.icon} ${css.cartIcon}`} />
           {cart && <p className={css.num}>{cart.length}</p>}
         </div>
 

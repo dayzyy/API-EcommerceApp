@@ -24,7 +24,7 @@
 .wrapper{
   display: flex;
   align-items: center;
-  gap: 3rem;
+  justify-content: space-between;
 }
 
 .wrapperImage{
@@ -35,4 +35,15 @@
 .wrapperPrice{
   display: flex;
   gap: .3rem;
+}
+
+.container{
+  display: flex;
+  flex-direction: column;
+}
+
+.wrapperInfo{
+  display: flex;
+  align-items: center;
+  gap: 3rem;
 }

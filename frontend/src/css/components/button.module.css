@@ -4,10 +4,22 @@
 
   border: 1px solid #003f5c;
   border-radius: 5px;
-  background: #FF4444;
 
   color: aqua;
   font-weight: bold;
 
   cursor: pointer;
+}
+
+.negative{
+  background: #FF4444;
+}
+
+.positive{
+  background: #009879;
+}
+
+.big{
+  height: 70px !important;
+  width: 140px !important;
 }
