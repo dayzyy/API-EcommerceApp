@@ -99,7 +99,7 @@ export default function Cart(){
     <div className={css.body}>
       <div className={css.wrapperInfo}>
         <div className={css.container}>
-          <h2 className={css.title} >Items in cart: {cart.length}</h2>
+          <h2 className={css.title} >Items in cart: {cart && cart.length}</h2>
           <div className={css.wrapperPrice}>
             <h2 className={css.title} >Total:</h2>
             <h2 className={css.price} >{total}$</h2>

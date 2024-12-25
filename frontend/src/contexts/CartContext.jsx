@@ -10,13 +10,12 @@ export function CartProvider({children}){
   const navigate = useNavigate()
 
   useEffect(_ => {
-    if (!cart || cart.length == 0){
+    if (!cart){
       navigate('/')
       localStorage.removeItem('cart')
       setCart(null)
       return
     }
-    if (cart) localStorage.setItem('cart', JSON.stringify(cart))
   }, [cart])
 
   const add_to_cart = id => {
@@ -60,13 +59,17 @@ export function CartProvider({children}){
     }
   }
 
-  const remove_from_cart = id => {
-    setCart(prev => prev.filter(product_id => product_id != id))
+  const empty_cart = _ => {
+    localStorage.removeItem('cart')
+    setCart(null)
   }
 
-  const empty_cart = _ => {
-    setCart(null)
-    localStorage.removeItem('cart')
+  const remove_from_cart = id => {
+    if (cart.length == 1){
+      empty_cart()
+      return
+    }
+    setCart(prev => prev.filter(product_id => product_id != id))
   }
 
   return(
