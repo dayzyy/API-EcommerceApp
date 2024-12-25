@@ -76,8 +76,6 @@ export default function Orders(){
 
   if (!orders) return <Loading/>
 
-  console.log(orders)
-
   if (orders.length == 0) return <h1>No orders</h1>
 
   return(
