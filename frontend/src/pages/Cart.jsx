@@ -64,6 +64,7 @@ export default function Cart(){
         showConfirmButton: false,
         timer: 1000,
       })
+      return
     }
 
     const response = await fetch(`http://localhost:8000/products/order/`, {
