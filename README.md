@@ -21,7 +21,7 @@ A simple E-commercing applictaion that allows you to put products out for sale f
 
 1. Clone the repository:
 ```
-git https://github.com/dayzyy/API-EcommerceApp.git
+git clone https://github.com/dayzyy/API-EcommerceApp.git
 ```
 2. Navigate to the api folder in the created directory:
 ```
