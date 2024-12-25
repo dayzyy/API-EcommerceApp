@@ -1,3 +1,4 @@
+from contextlib import nullcontext
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.views import Response
@@ -57,13 +58,24 @@ def order(request):
 
     return Response(status=200)
 
-@api_view(['POST'])
+@api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def ordered_products(request):
-    ids = request.data['ids']
-
-    products = Product.objects.filter(id__in=ids)
+    products = Product.objects.filter(ordered_by=request.user)
 
     data = CompactProductSerializer(products, many=True).data
 
     return Response(data, status=200)
+
+@api_view(['PUT'])
+@permission_classes([IsAuthenticated])
+def cancel_order(request, id):
+    product = Product.objects.get(pk=id)
+
+    if product.ordered_by == request.user:
+        product.ordered_by = None
+        product.save()
+    else:
+        return Response(status=403)
+
+    return Response(status=200)

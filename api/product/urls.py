@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import get, all, in_cart, in_sale, order, ordered_products
+from .views import get, all, in_cart, in_sale, order, ordered_products, cancel_order
 
 urlpatterns = [
     path('<int:id>/', get, name='get-product'),
@@ -8,5 +8,6 @@ urlpatterns = [
     path('sale/', in_sale, name='get-products-in-sale'),
     path('cart/', in_cart, name='get-products-in-cart'),
     path('order/', order, name='order'),
-    path('ordered/', ordered_products, name='ordered-products')
+    path('ordered/', ordered_products, name='ordered-products'),
+    path('ordered/cancel/<int:id>/', cancel_order, name='cancel-order')
 ]

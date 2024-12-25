@@ -1,0 +1,21 @@
+.main{
+  display: flex;
+  gap: 10rem;
+  flex-wrap: wrap;
+}
+
+.wrapper{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.wrapperImage{
+  width: 200px;
+  height: 200px;
+}
+
+.wrapperPrice{
+  display: flex;
+  gap: .3rem;
+}

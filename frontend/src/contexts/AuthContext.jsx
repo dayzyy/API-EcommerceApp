@@ -3,8 +3,6 @@ import { useNavigate } from "react-router-dom";
 
 import Swal from "sweetalert2";
 
-import '../css/swal.css'
-
 const AuthContext = createContext()
 
 const API_URL = 'http://localhost:8000'
