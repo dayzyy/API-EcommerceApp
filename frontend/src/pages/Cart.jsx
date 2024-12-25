@@ -24,6 +24,14 @@ export default function Cart(){
   }
 
   useEffect(_ => {
+    if (!cart){
+      navigate('/')
+      empty_cart()
+      return
+    }
+  }, [cart])
+
+  useEffect(_ => {
     const get_products = async _ => {
       if (!cart) return
 

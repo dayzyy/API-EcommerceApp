@@ -9,15 +9,6 @@ export function CartProvider({children}){
   const [cart, setCart] = useState(JSON.parse(localStorage.getItem('cart')))
   const navigate = useNavigate()
 
-  useEffect(_ => {
-    if (!cart){
-      navigate('/')
-      localStorage.removeItem('cart')
-      setCart(null)
-      return
-    }
-  }, [cart])
-
   const add_to_cart = id => {
     if (!cart){
       const products = [id]

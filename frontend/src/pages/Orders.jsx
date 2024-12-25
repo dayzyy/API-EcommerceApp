@@ -18,6 +18,13 @@ export default function Orders(){
   const {tokens} = useAuth()
   const navigate = useNavigate()
 
+  useEffect(_ => {
+    if (!orders || orders.length == 0){
+      navigate('/')
+      return
+    }
+  }, [orders])
+
   const get_orders = async _ => {
     if (!tokens) return
 
