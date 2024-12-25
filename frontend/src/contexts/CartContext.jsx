@@ -6,16 +6,11 @@ import Swal from "sweetalert2";
 const CartContext = createContext()
 
 export function CartProvider({children}){
-  const [cart, setCart] = useState(null)
+  const [cart, setCart] = useState(JSON.parse(localStorage.getItem('cart')))
   const navigate = useNavigate()
 
   useEffect(_ => {
-    const savedCart = JSON.parse(localStorage.getItem('cart'))
-    if (savedCart) setCart(savedCart)
-  }, [])
-
-  useEffect(_ => {
-    if (cart && cart.length == 0){
+    if (!cart || cart.length == 0){
       navigate('/')
       localStorage.removeItem('cart')
       setCart(null)
