@@ -9,18 +9,11 @@ const API_URL = 'http://localhost:8000'
 
 export const AuthProvider = ({children}) =>  {
   const [user, setUser] = useState(null)
-  const [tokens, setTokens] = useState(null)
+  const [tokens, setTokens] = useState(JSON.parse(localStorage.getItem('tokens')))
   const navigate = useNavigate()
 
   useEffect(_ => {
-    const savedTokens = JSON.parse(localStorage.getItem('tokens'))
-
-    if (savedTokens) setTokens(savedTokens)
-  }, [])
-
-  useEffect(_ => {
     if(tokens){
-      localStorage.setItem('tokens', JSON.stringify(tokens))
       get_user()
     }
   }, [tokens])
