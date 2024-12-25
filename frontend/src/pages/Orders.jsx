@@ -19,9 +19,19 @@ export default function Orders(){
   const navigate = useNavigate()
 
   useEffect(_ => {
-    if (!orders || orders.length == 0){
-      navigate('/')
-      return
+    if (orders){
+      if (orders.length == 0){
+        navigate('/')
+        Swal.fire({
+          width: '300',
+          position: 'center',
+          title: 'No orders!',
+          icon: 'error',
+          showConfirmButton: false,
+          timer: 1000,
+        })
+        return
+      }
     }
   }, [orders])
 
