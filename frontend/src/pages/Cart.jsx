@@ -53,6 +53,19 @@ export default function Cart(){
   }, [cart])
 
   const order = async _ => {
+    if (!tokens) {
+      navigate('/login')
+
+      Swal.fire({
+        width: '300',
+        position: 'center',
+        title: 'Authorize to make orders!',
+        icon: 'error',
+        showConfirmButton: false,
+        timer: 1000,
+      })
+    }
+
     const response = await fetch(`http://localhost:8000/products/order/`, {
       method: 'POST',
       headers: {

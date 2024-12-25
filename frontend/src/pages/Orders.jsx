@@ -9,13 +9,14 @@ import Swal from 'sweetalert2'
 import { useAuth } from '../contexts/AuthContext'
 
 import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 export default function Orders(){
   const API_URL = 'http://localhost:8000/products'
 
   const [orders, setOrders] = useState(null)
   const {tokens} = useAuth()
-
+  const navigate = useNavigate()
 
   const get_orders = async _ => {
     if (!tokens) return
@@ -35,6 +36,19 @@ export default function Orders(){
   }
 
   useEffect(_ => {
+    if (!tokens) {
+      navigate('/login')
+
+      Swal.fire({
+        width: '300',
+        position: 'center',
+        title: 'Authorize to make orders!',
+        icon: 'error',
+        showConfirmButton: false,
+        timer: 1000,
+      })
+    }
+
     get_orders()
   }, [tokens])
 
@@ -61,6 +75,10 @@ export default function Orders(){
   }
 
   if (!orders) return <Loading/>
+
+  console.log(orders)
+
+  if (orders.length == 0) return <h1>No orders</h1>
 
   return(
     <div className={css.body}>

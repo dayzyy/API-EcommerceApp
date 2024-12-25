@@ -14,6 +14,7 @@ export default function Settings(){
   const orders = _ => {
     if (!user) {
       toggleSettings()
+      navigate('/login')
       Swal.fire({
         width: '300',
         position: 'center',
