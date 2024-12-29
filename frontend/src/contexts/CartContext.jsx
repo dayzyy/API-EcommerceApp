@@ -9,9 +9,9 @@ export function CartProvider({children}){
   const [cart, setCart] = useState(JSON.parse(localStorage.getItem('cart')))
   const navigate = useNavigate()
 
-  const add_to_cart = id => {
+  const add_to_cart = product => {
     if (!cart){
-      const products = [id]
+      const products = [product]
       localStorage.setItem('cart', JSON.stringify(products))
       setCart(products)
   
@@ -25,19 +25,21 @@ export function CartProvider({children}){
       })
     }
     else{
-      if (cart.includes(id)){
-        Swal.fire({
-          width: '300',
-          position: 'center',
-          title: 'Item already in your cart!',
-          icon: 'error',
-          showConfirmButton: false,
-          timer: 2000,
-        })
-        return
+      for (const item in cart){
+        if (item.id == product.id) {
+          Swal.fire({
+            width: '300',
+            position: 'center',
+            title: 'Item already in cart!',
+            icon: 'error',
+            showConfirmButton: false,
+            timer: 1000,
+          })
+          return
+        }
       }
       
-      setCart(prev => [...prev, id])
+      setCart(prev => [...prev, product])
 
       Swal.fire({
         width: '300',
@@ -60,7 +62,7 @@ export function CartProvider({children}){
       empty_cart()
       return
     }
-    setCart(prev => prev.filter(product_id => product_id != id))
+    setCart(prev => prev.filter(product => product.id != id))
   }
 
   return(

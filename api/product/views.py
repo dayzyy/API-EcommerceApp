@@ -1,7 +1,7 @@
 from contextlib import nullcontext
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny, IsAuthenticated
-from rest_framework.views import Response
+from rest_framework.views import Response, APIView
 
 from .models import Product
 from .serializers import BaseProductSerializer, CompactProductSerializer
@@ -34,16 +34,19 @@ def in_sale(request):
 
     return Response(data, status=200)
 
-@api_view(['POST'])
+@api_view(['GET'])
 @permission_classes([AllowAny])
-def in_cart(request):
-    ids = request.data['ids']
+def filter(request, category):
+    valid_categories = [choice[0] for choice in Product.Category.choices]
 
-    products = (Product.objects.filter(id__in=ids))
+    for valid_category in valid_categories:
+        if valid_category.lower() == category.lower():
+            products = Product.objects.filter(category=valid_category, ordered_by__isnull=True)
+            data = CompactProductSerializer(products, many=True).data
 
-    data = CompactProductSerializer(products, many=True).data
+            return Response(data, status=200)
 
-    return Response(data, status=200)
+    return Response(status=400)
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
@@ -57,6 +60,21 @@ def order(request):
         product.save()
 
     return Response(status=200)
+
+class Order(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        ids = request.data['ids']
+
+        products = Product.objects.filter(id__in=ids)
+
+        for product in products:
+            product.ordered_by = request.user
+            product.save()
+
+        return Response(status=200)
+
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])

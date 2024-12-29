@@ -50,6 +50,18 @@ export default function Orders(){
       const data = await response.json()
       setOrders(data)
     }
+
+    if(response.status == 400){
+      navigate('/')
+      Swal.fire({
+        width: '300',
+        position: 'center',
+        title: 'No orders!',
+        icon: 'error',
+        showConfirmButton: false,
+        timer: 1000,
+      })
+    }
   }
 
   useEffect(_ => {

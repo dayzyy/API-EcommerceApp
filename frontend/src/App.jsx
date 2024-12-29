@@ -5,6 +5,7 @@ import Login from "./pages/Login"
 import Signup from "./pages/Signup"
 import PageNotFound from "./pages/PageNotFound"
 import Product from "./pages/Product"
+import Category from "./pages/Category"
 import Cart from "./pages/Cart"
 import Orders from "./pages/Orders"
 
@@ -15,6 +16,7 @@ export default function App() {
         <Route path='login' element={<Login/>} />
         <Route path='signup' element={<Signup/>} />
         <Route path='product/:id' element={<Product/>} />
+        <Route path='products/:category' element={<Category/>} />
         <Route path='cart' element={<Cart/>} />
         <Route path='orders' element={<Orders/>} />
         <Route path='*' element={<PageNotFound/>} />

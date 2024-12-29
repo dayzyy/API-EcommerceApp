@@ -61,7 +61,7 @@ export default function Product(){
           </div>
         </div>
 
-        <button className={css.button} onClick={_ => add_to_cart(product.id)} >Add to cart</button>
+        <button className={css.button} onClick={_ => add_to_cart(product)} >Add to cart</button>
       </div>
     </div>
   )

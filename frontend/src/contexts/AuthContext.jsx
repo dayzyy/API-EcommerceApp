@@ -14,6 +14,7 @@ export const AuthProvider = ({children}) =>  {
 
   useEffect(_ => {
     if(tokens){
+      localStorage.setItem('tokens', JSON.stringify(tokens))
       get_user()
     }
   }, [tokens])
@@ -101,7 +102,6 @@ export const AuthProvider = ({children}) =>  {
     }
 
     const data = await response.json()
-    localStorage.setItem('tokens', JSON.stringify(data))
     setTokens(data)
   }
 
@@ -130,6 +130,7 @@ export const AuthProvider = ({children}) =>  {
   
       if (res.status == 200){
         const data = await res.json()
+        console.log(data)
         setTokens(prev => ({...prev, access: data.access}))
       }
 

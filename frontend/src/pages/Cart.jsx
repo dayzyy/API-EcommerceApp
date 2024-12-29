@@ -14,7 +14,6 @@ import { useNavigate } from 'react-router-dom'
 
 export default function Cart(){
   const {cart, remove_from_cart, empty_cart} = useCart()
-  const [products, setProducts] = useState(null)
   const [total, setTotal] = useState(0)
   const {tokens} = useAuth()
   const navigate = useNavigate()
@@ -32,32 +31,13 @@ export default function Cart(){
   }, [cart])
 
   useEffect(_ => {
-    const get_products = async _ => {
-      if (!cart) return
-
-      const response = await fetch(`http://localhost:8000/products/cart/`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          ids: [...cart]
-        })
+    if (cart){
+      let totalAmount = 0
+      cart.forEach(product => {
+        totalAmount += discount(product)
       })
-
-      if (response.status == 200){
-        const data = await response.json()
-
-        let totalAmount = 0
-        data.forEach(product => {
-          totalAmount += discount(product)
-        })
-        setTotal(totalAmount)
-
-        setProducts(data)
-      }
+      setTotal(totalAmount)
     }
-    get_products()
   }, [cart])
 
   const order = async _ => {
@@ -75,6 +55,10 @@ export default function Cart(){
       return
     }
 
+    const ids = []
+
+    for (const product of cart) ids.push(product.id)
+
     const response = await fetch(`http://localhost:8000/products/order/`, {
       method: 'POST',
       headers: {
@@ -82,7 +66,7 @@ export default function Cart(){
         'Authorization': `Bearer ${tokens.access}`,
       },
       body: JSON.stringify({
-        ids: [...cart]
+        ids: ids
       })
     })
 
@@ -99,9 +83,20 @@ export default function Cart(){
         timer: 1000,
       })
     }
+
+    if (response.status == 405){
+      Swal.fire({
+        width: '300',
+        position: 'center',
+        title: 'Something went wrong',
+        icon: 'error',
+        showConfirmButton: false,
+        timer: 1000,
+      })
+    }
   }
 
-  if (!products) return <Loading/>
+  if (!cart) return <Loading/>
 
   return(
     <div className={css.body}>
@@ -116,7 +111,7 @@ export default function Cart(){
         <Button text='Checkout' positive={true} big={true} click={order} />
       </div>
       <div className={css.main}>
-        {products.map(product => {
+        {cart.map(product => {
           return(
             <div className={css.wrapper} key={product.id}>
               <div className={css.wrapperImage}>
