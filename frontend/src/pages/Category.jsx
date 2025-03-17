@@ -6,6 +6,8 @@ import Loading from '../components/Loading'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 
+import API_URL from "../settings.js"
+
 export default function Category(){
   const navigate = useNavigate()
   const {category} = useParams()
@@ -13,7 +15,7 @@ export default function Category(){
 
   useEffect(_ => {
     const get_products = async _ => {
-      const response = await fetch(`http://localhost:8000/products/${category}/`)
+      const response = await fetch(`${API_URL}/products/${category}/`)
 
       if (response.status == 400) navigate('/')
 

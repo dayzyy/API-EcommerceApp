@@ -11,8 +11,9 @@ import { useAuth } from '../contexts/AuthContext'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
+import API_URL from '../settings'
+
 export default function Orders(){
-  const API_URL = 'http://localhost:8000/products'
 
   const [orders, setOrders] = useState(null)
   const {tokens} = useAuth()
@@ -38,7 +39,7 @@ export default function Orders(){
   const get_orders = async _ => {
     if (!tokens) return
 
-    const response = await fetch(`${API_URL}/ordered/`, {
+    const response = await fetch(`${API_URL}/products/ordered/`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -82,7 +83,7 @@ export default function Orders(){
   }, [tokens])
 
   const cancel_order = async id => {
-    const response = fetch(`${API_URL}/ordered/cancel/${id}/`, {
+    const response = fetch(`${API_URL}/products/ordered/cancel/${id}/`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',

@@ -5,7 +5,7 @@ import Swal from "sweetalert2";
 
 const AuthContext = createContext()
 
-const API_URL = 'http://localhost:8000'
+import API_URL from "../settings";
 
 export const AuthProvider = ({children}) =>  {
   const [user, setUser] = useState(null)
@@ -106,7 +106,7 @@ export const AuthProvider = ({children}) =>  {
   }
 
   const get_user = async _ => {
-    const response = await fetch(`${API_URL}/user/get`, {
+    const response = await fetch(`${API_URL}/user/get/`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

@@ -12,6 +12,8 @@ import { useEffect, useState } from 'react'
 import Swal from 'sweetalert2'
 import { useNavigate } from 'react-router-dom'
 
+import API_URL from '../settings'
+
 export default function Cart(){
   const {cart, remove_from_cart, empty_cart} = useCart()
   const [total, setTotal] = useState(0)
@@ -59,7 +61,7 @@ export default function Cart(){
 
     for (const product of cart) ids.push(product.id)
 
-    const response = await fetch(`http://localhost:8000/products/order/`, {
+    const response = await fetch(`${API_URL}/products/order/`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

@@ -5,18 +5,17 @@ import { useCart } from '../contexts/CartContext';
 
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import Swal from 'sweetalert2';
+
+import API_URL from '../settings';
 
 export default function Product(){
   const {id} = useParams()
   const {add_to_cart} = useCart()
   const [product, setProduct] = useState(null)
 
-  const API_IMAGES_URL = 'http://localhost:8000'
-
   useEffect(_ => {
     const get_product = async _ => {
-      const response = await fetch(`http://localhost:8000/products/${id}/`)
+      const response = await fetch(`${API_URL}/products/${id}/`)
       
       if (response.status == 200){
         const data = await response.json()
@@ -37,7 +36,7 @@ export default function Product(){
   return(
     <div className={css.body}>
       <div className={css.wrapper}>
-        <img className={css.image} src={product.image ? `${API_IMAGES_URL}/${product.image}` : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTVLDP5s2j9u1x86fOb7kNKXanJeMn8zZ30ZQ&s'} loading='lazy' onClick={_ => window.location.href=`${API_IMAGES_URL}/${product.image}`}/>
+        <img className={css.image} src={product.image ? `${API_URL}/${product.image}` : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTVLDP5s2j9u1x86fOb7kNKXanJeMn8zZ30ZQ&s'} loading='lazy' onClick={_ => window.location.href=`${API_IMAGES_URL}/${product.image}`}/>
         <div className={css.wrapperPrice}>
           <p className={css.text} >Price:</p>
           {product.sale && <p className={css.priceOld} >{product.price}$</p>}

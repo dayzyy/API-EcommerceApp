@@ -5,10 +5,9 @@ import CardContainer from '../components/CardContainer';
 
 import { useEffect, useState } from 'react';
 
+import API_URL from '../settings';
 
 export default function Index(){
-  const API_URL = 'http://localhost:8000'
-
   const [productsInSale, setProductsInSale] = useState(null)
   const [products, setProducts] = useState(null)
 
