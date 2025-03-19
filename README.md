@@ -67,3 +67,28 @@ npm install
 npm run dev
 ```
 You are all set! You can now visit the server and have happy shooping!
+
+
+## Screenshots
+
+### Desktop
+
+![Signup Page](screenshots/desktop/cart1.png)
+![Signup Page](screenshots/desktop/cart2.png)
+
+![Feed Page](screenshots/desktop/categories.png)
+
+![Profile Page](screenshots/desktop/feed.png)
+![Friend Profile Page](screenshots/desktop/item.png)
+![Friends Page](screenshots/desktop/settings.png)
+
+### Mobile
+
+<img src="screenshots/mobile/cart1.png" width="300" style="border: 2px solid black; border-radius: 10px;">
+<img src="screenshots/mobile/cart2.png" width="300" style="border: 2px solid black; border-radius: 10px;">
+
+<img src="screenshots/mobile/categories.png" width="300" style="border: 2px solid black; border-radius: 10px;">
+
+<img src="screenshots/mobile/feed.png" width="300" style="border: 2px solid black; border-radius: 10px;">
+<img src="screenshots/mobile/item.png" width="300" style="border: 2px solid black; border-radius: 10px;">
+<img src="screenshots/mobile/settings.png" width="300" style="border: 2px solid black; border-radius: 10px;">
